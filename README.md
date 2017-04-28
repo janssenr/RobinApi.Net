@@ -1,4 +1,5 @@
 # RobinApi.Net
+[![Build Status](https://travis-ci.org/janssenr/RobinApi.Net.svg?branch=master)](https://travis-ci.org/janssenr/RobinApi.Net)
 
 A C#/.net wrapper for Robin's API
 
