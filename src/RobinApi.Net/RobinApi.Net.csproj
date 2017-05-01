@@ -48,6 +48,7 @@
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Model\AccessToken.cs" />
+    <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Amenity.cs" />
     <Compile Include="Model\Busy.cs" />
     <Compile Include="Model\Calendar.cs" />

@@ -13,13 +13,13 @@ namespace RobinApi.Net.Model
         public int AccountId { get; set; }
 
         [DataMember(Name = "device_manifest_id", EmitDefaultValue = false)]
-        public int DeviceManifestId { get; set; }
+        public int? DeviceManifestId { get; set; }
 
         [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
 
         [DataMember(Name = "last_reported_at", EmitDefaultValue = false)]
-        public DateTime LastReportedAt { get; set; }
+        public DateTime? LastReportedAt { get; set; }
 
         [DataMember(Name = "created_at", EmitDefaultValue = false)]
         public DateTime CreatedAt { get; set; }

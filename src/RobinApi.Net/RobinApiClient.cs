@@ -47,7 +47,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<AccessToken>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Organization>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Location[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Location>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<User[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<User[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<User>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Amenity[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -214,7 +214,33 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Amenity>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Returns a list of devices that belong to the Organization resource. This is indicative of hardware that is physically inside the organization, such as a beacon, motion sensor, or projector.
+        /// </summary>
+        /// <param name="id">The ID or slug of the organization</param>
+        /// <param name="manifest">When provided, results will be filtered by the specified device manifest</param>
+        /// <param name="page">The page of the result</param>
+        /// <param name="perPage">How many results are returned per page</param>
+        /// <returns></returns>
+        public async Task<Device[]> GetOrganizationDevices(int id, string manifest = null, int page = 1, int perPage = 10)
+        {
+            var urlBuilder = new StringBuilder("organizations/" + id + "/devices");
+            var parameters = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(manifest))
+                parameters.Add("manifest", manifest);
+            parameters.Add("page", page.ToString());
+            parameters.Add("per_page", perPage.ToString());
+            urlBuilder.Append(GetQueryString(parameters));
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Device[]>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -231,7 +257,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<User>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -248,7 +274,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Presence[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -277,7 +303,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Event[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -293,7 +319,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<User>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -310,7 +336,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Presence[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -338,7 +364,24 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Event[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Get the currently authenticated user's organizations.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Organization[]> GetMyOrganizations()
+        {
+            var urlBuilder = new StringBuilder("me/organizations");
+
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Organization[]>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -355,7 +398,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Location>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -373,7 +416,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -400,7 +443,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Space[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -419,7 +462,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Space>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -449,7 +492,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Presence[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -468,7 +511,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Presence>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -487,7 +530,62 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Returns a list of devices that belong to the Location resource. This is indicative of hardware that is physically inside the location, such as a beacon, motion sensor, or projector.
+        /// </summary>
+        /// <param name="id">The ID of the location</param>
+        /// <param name="manifest">When provided, results will be filtered by the specified device manifest</param>
+        /// <param name="page">The page of the result</param>
+        /// <param name="perPage">How many results are returned per page</param>
+        /// <returns></returns>
+        public async Task<Device[]> GetLocationDevices(int id, string manifest = null, int page = 1, int perPage = 10)
+        {
+            var urlBuilder = new StringBuilder("locations/" + id + "/devices");
+            var parameters = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(manifest))
+                parameters.Add("manifest", manifest);
+            parameters.Add("page", page.ToString());
+            parameters.Add("per_page", perPage.ToString());
+            urlBuilder.Append(GetQueryString(parameters));
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Device[]>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Get a list of a location's events
+        /// </summary>
+        /// <param name="id">The ID of the location</param>
+        /// <param name="after">Lower bound for an event's end property</param>
+        /// <param name="before">Upper bound for an event's start property</param>
+        /// <param name="page">The page to return</param>
+        /// <param name="perPage">The amount of results to return per page</param>
+        /// <returns></returns>
+        public async Task<Event[]> GetLocationEvents(int id, DateTime? after = null, DateTime? before = null, int page = 1, int perPage = 10)
+        {
+            var urlBuilder = new StringBuilder("locations/" + id + "/events");
+            var parameters = new Dictionary<string, string>();
+            if (after.HasValue)
+                parameters.Add("after", after.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"));
+            if (before.HasValue)
+                parameters.Add("before", before.Value.ToString("yyyy-MM-ddTHH:mm:sszzz"));
+            parameters.Add("page", page.ToString());
+            parameters.Add("per_page", perPage.ToString());
+            urlBuilder.Append(GetQueryString(parameters));
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Event[]>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -509,7 +607,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Space>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -527,9 +625,14 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
+        /// <summary>
+        /// Permanently deletes a Space resource and all of it's related submodels, such as events.
+        /// </summary>
+        /// <param name="id">The ID of the space to remove</param>
+        /// <returns></returns>
         public async Task DeleteSpace(int id)
         {
             var urlBuilder = new StringBuilder("spaces/" + id);
@@ -539,7 +642,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -568,7 +671,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Event[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -587,7 +690,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Event>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -604,7 +707,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Amenity[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -622,7 +725,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Amenity>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -641,7 +744,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Amenity>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -659,7 +762,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -686,7 +789,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Presence[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -705,7 +808,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Presence>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -724,7 +827,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -750,7 +853,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Device[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -767,7 +870,43 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<SpaceState>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Gets the calendar for the space.
+        /// </summary>
+        /// <param name="id">The ID of the space</param>
+        /// <returns></returns>
+        public async Task<Calendar> GetSpaceCalendar(int id)
+        {
+            var urlBuilder = new StringBuilder("spaces/" + id + "/calendar");
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Calendar>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Calendar>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Add calendar to a space
+        /// </summary>
+        /// <param name="id">The ID of the space</param>
+        /// <param name="calendar"></param>
+        /// <returns></returns>
+        public async Task<Calendar> AddSpaceCalendar(int id, Calendar calendar)
+        {
+            var urlBuilder = new StringBuilder("spaces/" + id + "/calendar");
+            var content = new StringContent(JsonHelper.Serialize(calendar), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync(urlBuilder.ToString(), content).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Calendar>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Calendar>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -789,7 +928,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Event>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -807,7 +946,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -824,7 +963,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -843,7 +982,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -860,7 +999,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -877,7 +1016,7 @@ namespace RobinApi.Net
             {
                 return;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -927,7 +1066,7 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<FreeBusy[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         /// <summary>
@@ -945,7 +1084,122 @@ namespace RobinApi.Net
             {
                 return JsonHelper.Deserialize<ApiWrapper<DeviceManifest[]>>(jsonResult).Data;
             }
-            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<Confirmation>>(jsonResult).Meta);
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Get details about a devicemanifest
+        /// </summary>
+        /// <param name="id">The ID or slug of the devicemanifest</param>
+        /// <returns></returns>
+        public async Task<DeviceManifest> GetDeviceManifest(string id)
+        {
+            var urlBuilder = new StringBuilder("device-manifests/" + id);
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<DeviceManifest>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Returns a Device resource, containing information about the device.
+        /// </summary>
+        /// <param name="id">The ID of the device</param>
+        /// <returns>Returns an Device resource</returns>
+        public async Task<Device> GetDevice(int id)
+        {
+            var urlBuilder = new StringBuilder("devices/" + id);
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Device>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Create a new device.
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        public async Task<Device> AddDevice(Device device)
+        {
+            var urlBuilder = new StringBuilder("me/devices");
+            var content = new StringContent(JsonHelper.Serialize(device), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(urlBuilder.ToString(), content).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Device>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Add identifier to a device
+        /// </summary>
+        /// <param name="id">The ID of the device to post identifier to.</param>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public async Task<Identifier> AddDeviceIdentifier(int id, Identifier identifier)
+        {
+            var urlBuilder = new StringBuilder("devices/" + id + "/identifiers");
+            var content = new StringContent(JsonHelper.Serialize(identifier), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(urlBuilder.ToString(), content).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Identifier>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Get all of a device's spaces
+        /// </summary>
+        /// <param name="id">The ID of the device</param>
+        /// <param name="query">Will filter by a specified space name</param>
+        /// <param name="page">The page of the result</param>
+        /// <param name="perPage">How many results are returned per page</param>
+        /// <returns></returns>
+        public async Task<Space[]> GetDeviceSpaces(int id, string query = null, int page = 1, int perPage = 10)
+        {
+            var urlBuilder = new StringBuilder("devices/" + id + "/spaces");
+            var parameters = new Dictionary<string, string>
+            {
+                {"query", query},
+                {"page", page.ToString()},
+                {"per_page", perPage.ToString()}
+            };
+            urlBuilder.Append(GetQueryString(parameters));
+            var response = await _httpClient.GetAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonHelper.Deserialize<ApiWrapper<Space[]>>(jsonResult).Data;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
+        }
+
+        /// <summary>
+        /// Permanently deletes a Device resource and all of it's related submodels.
+        /// </summary>
+        /// <param name="id">The ID of the device to remove</param>
+        /// <returns></returns>
+        public async Task DeleteDevice(int id)
+        {
+            var urlBuilder = new StringBuilder("devices/" + id);
+            var response = await _httpClient.DeleteAsync(urlBuilder.ToString()).ConfigureAwait(false);
+            var jsonResult = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+            throw new RobinApiException(JsonHelper.Deserialize<ApiWrapper<object>>(jsonResult).Meta);
         }
 
         private string GetQueryString(Dictionary<string, string> parameters)
