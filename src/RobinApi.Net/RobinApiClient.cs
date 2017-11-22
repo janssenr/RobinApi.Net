@@ -11,7 +11,7 @@ using RobinApi.Net.Model;
 using RobinApi.Net.Wrappers;
 
 namespace RobinApi.Net
-{
+{ 
     public class RobinApiClient
     {
         private const string ApiBaseUrl = "https://api.robinpowered.com/v1.0/";
