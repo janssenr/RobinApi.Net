@@ -1,11 +1,17 @@
 language: csharp
+dist: trusty
+mono: none
+dotnet: 2.0.0
 solution: ./src/RobinApi.Net.sln
-install:
-  - nuget restore ./src/RobinApi.Net.sln
+
+#Don't need to restore nuget packages anymore, dotnet build command will restore it automatically. Ref: https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-restore?tabs=netcore2x
+#install:
+  # dotnet restore ./src/RobinApi.Net.sln 
   #- nuget install NUnit.Runners -Version 3.5.0 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=V451 ./src/RobinApi.Net.sln
+  - dotnet build ./src/RobinApi.Net.sln
   #- mono ./testrunner/NUnit.ConsoleRunner.3.5.0/tools/nunit3-console.exe ./src/RobinApi.Tests/bin/V451/RobinApi.Tests.dll
 notifications:
   email:
     - rob.janssen@upcmail.nl
+
