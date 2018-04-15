@@ -2,6 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>RobinApi</PackageId>
+    <PackageVersion>1.0.2</PackageVersion>
+    <Authors>Rob Janssen</Authors>
+    <Description>A C#/.Net Standard 2.0 wrapper for Robin's API</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Copyright>Copyright Rob Janssen 2018</Copyright>
+    <PackageTags>robin powered robinpowered meeting room booking display api rest data</PackageTags>
+    <Version>1.0.2</Version>
+    <PackageProjectUrl>https://github.com/janssenr/RobinApi.Net</PackageProjectUrl>
+    <PackageIconUrl>https://files.readme.io/d78c8b0-favicon.ico</PackageIconUrl>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
