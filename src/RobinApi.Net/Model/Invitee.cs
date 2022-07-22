@@ -13,7 +13,7 @@ namespace RobinApi.Net.Model
         public string EventId { get; set; }
 
         [DataMember(Name = "user_id", EmitDefaultValue = false)]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         [DataMember(Name = "email", EmitDefaultValue = false)]
         public string Email { get; set; }
